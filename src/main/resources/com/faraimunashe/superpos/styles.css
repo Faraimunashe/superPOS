@@ -1,0 +1,71 @@
+/* Root pane styling */
+.root {
+    -fx-background-color: #f7f9fc; /* Light background color */
+    -fx-padding: 20px;
+}
+
+/* Title styling */
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+/* Logo placeholder */
+.logo-placeholder {
+    -fx-font-size: 18px;
+    -fx-background-color: #ccc;
+    -fx-padding: 20px;
+    -fx-text-fill: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+/* Input field styling */
+.input-field {
+    -fx-pref-width: 250px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #fff;
+}
+
+/* Focused input field */
+.input-field:focused {
+    -fx-border-color: #0078d7; /* Blue border on focus */
+}
+
+/* Button styling */
+.login-button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.login-button:hover {
+    -fx-background-color: #005fa3; /* Darker blue on hover */
+}
+
+.login-button:pressed {
+    -fx-background-color: #004a82;
+}
+
+/* Logo image styling */
+#logoImage {
+    -fx-effect: dropshadow(gaussian, #888, 10, 0, 0, 2); /* Add a shadow effect */
+}
+
+.error-message {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
