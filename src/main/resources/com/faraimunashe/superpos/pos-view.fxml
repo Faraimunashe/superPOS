@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.HBox?>
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.faraimunashe.superpos.Controllers.PosController">
-   <top>
-      <AnchorPane styleClass="header-pane">
-         <Label fx:id="lblLoggedInUser" text="Logged in as: User" layoutX="20" layoutY="20"/>
-      </AnchorPane>
-   </top>
-   <left>
-      <VBox spacing="10" prefWidth="400" styleClass="products-pane">
-         <Label text="Available Products" styleClass="section-title" />
-         <ListView fx:id="lvProducts" />
-      </VBox>
-   </left>
-   <center>
-      <VBox spacing="10" prefWidth="200" styleClass="selected-items-pane">
-         <Label text="Selected Items" styleClass="section-title" />
-         <ListView fx:id="lvSelectedItems" />
-         <HBox spacing="10" alignment="CENTER_RIGHT" >
-            <Label text="Total:" />
-            <Label fx:id="lblTotalAmount" text="0.0" styleClass="total-amount" />
-         </HBox>
-         <Button fx:id="btnProceedToPayment" text="Proceed to Payment" onAction="#handleProceedToPayment" />
-      </VBox>
-   </center>
-</BorderPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="1238.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox fx:id="headerHbox" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="1238.0" spacing="20" styleClass="card-hbox" stylesheets="@styles.css" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="-15.0">
+      <!-- Logged in User -->
+      <Label styleClass="card-label" stylesheets="@styles.css" text="USER: John Doe" />
+      <Label styleClass="card-label" stylesheets="@styles.css" text="TERMID: 12345" />
+      <Label styleClass="card-label" stylesheets="@styles.css" text="LOCATION: Store 12" />
+
+      <!-- Spacer to push the time to the right -->
+      <Region fx:id="spacer" stylesheets="@styles.css" HBox.hgrow="ALWAYS" />
+
+      <!-- Current Time -->
+      <Label fx:id="timeLabel" stylesheets="@styles.css" text="12:00 PM">
+         <styleClass>
+            <String fx:value="header-time" />
+            <String fx:value="card-label" />
+         </styleClass></Label>
+   </HBox>
+   <HBox layoutX="14.0" layoutY="69.0" prefHeight="531.0" prefWidth="1215.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="50.0">
+      <children>
+         <VBox prefHeight="515.0" prefWidth="846.0" styleClass="card-vbox" stylesheets="@styles.css">
+            <children>
+               <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="715.0" promptText="Search items ..." styleClass="search-input" stylesheets="@styles.css" />
+               <ScrollPane prefHeight="451.0" prefWidth="803.0">
+                 <content>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                           <TilePane fx:id="tileItem" hgap="10.0" layoutX="3.0" layoutY="3.0" prefHeight="200.0" prefWidth="200.0" styleClass="tile" stylesheets="@styles.css" vgap="10.0" />
+                        </children>
+                     </AnchorPane>
+                 </content>
+               </ScrollPane>
+            </children>
+         </VBox>
+         <VBox prefHeight="515.0" prefWidth="9.0" />
+         <VBox prefHeight="515.0" prefWidth="369.0" styleClass="card-vbox" stylesheets="@styles.css" />
+      </children>
+   </HBox>
+</AnchorPane>
