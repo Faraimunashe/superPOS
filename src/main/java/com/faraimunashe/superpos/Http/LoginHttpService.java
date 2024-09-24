@@ -7,11 +7,18 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.faraimunashe.superpos.Bootstrap.ConfigReader;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class LoginHttpService {
-    private static final String API_URL = "http://127.0.0.1:8000/api/v1/login";
+    static ConfigReader config = new ConfigReader();
+
+    private static String server = config.getValue("SERVER");
+    private static String serverVersion = config.getValue("SERVER_VERSION");
+
+    private static final String API_URL = server+"/"+serverVersion+"/login";
 
     public static JsonObject login(String email, String password) throws Exception {
         HttpClient client = HttpClient.newHttpClient();

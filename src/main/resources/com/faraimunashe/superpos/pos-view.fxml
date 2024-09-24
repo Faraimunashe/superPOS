@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -10,12 +11,12 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="1238.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832.0" prefWidth="1694.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.faraimunashe.superpos.Controllers.PosController">
    <HBox fx:id="headerHbox" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="1238.0" spacing="20" styleClass="card-hbox" stylesheets="@styles.css" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="-15.0">
       <!-- Logged in User -->
-      <Label styleClass="card-label" stylesheets="@styles.css" text="USER: John Doe" />
-      <Label styleClass="card-label" stylesheets="@styles.css" text="TERMID: 12345" />
-      <Label styleClass="card-label" stylesheets="@styles.css" text="LOCATION: Store 12" />
+      <Label fx:id="lblUsername" styleClass="card-label" stylesheets="@styles.css" text="USER: John Doe" />
+      <Label fx:id="lblTerminal" styleClass="card-label" stylesheets="@styles.css" text="TERMID: 12345" />
+      <Label fx:id="lblLocation" styleClass="card-label" stylesheets="@styles.css" text="LOCATION: Store 12" />
 
       <!-- Spacer to push the time to the right -->
       <Region fx:id="spacer" stylesheets="@styles.css" HBox.hgrow="ALWAYS" />
@@ -29,22 +30,25 @@
    </HBox>
    <HBox layoutX="14.0" layoutY="69.0" prefHeight="531.0" prefWidth="1215.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="50.0">
       <children>
-         <VBox prefHeight="515.0" prefWidth="846.0" styleClass="card-vbox" stylesheets="@styles.css">
+         <VBox prefHeight="742.0" prefWidth="954.0" styleClass="card-vbox" stylesheets="@styles.css" HBox.hgrow="ALWAYS">
             <children>
-               <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="715.0" promptText="Search items ..." styleClass="search-input" stylesheets="@styles.css" />
-               <ScrollPane prefHeight="451.0" prefWidth="803.0">
+               <TextField fx:id="txtSearch" onKeyReleased="#handleSearchAction" prefHeight="25.0" prefWidth="715.0" promptText="Search items ..." styleClass="search-input" stylesheets="@styles.css" />
+               <ScrollPane fx:id="scrollProducts" fitToWidth="true" hbarPolicy="NEVER" prefHeight="667.0" prefWidth="858.0" VBox.vgrow="ALWAYS">
                  <content>
-                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                   <AnchorPane fx:id="tileAnchor" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" styleClass="tile" stylesheets="@styles.css">
                         <children>
-                           <TilePane fx:id="tileItem" hgap="10.0" layoutX="3.0" layoutY="3.0" prefHeight="200.0" prefWidth="200.0" styleClass="tile" stylesheets="@styles.css" vgap="10.0" />
+                           <TilePane fx:id="tileItem" hgap="10.0" layoutX="3.0" layoutY="3.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@styles.css" vgap="10.0" />
                         </children>
                      </AnchorPane>
                  </content>
                </ScrollPane>
             </children>
          </VBox>
-         <VBox prefHeight="515.0" prefWidth="9.0" />
-         <VBox prefHeight="515.0" prefWidth="369.0" styleClass="card-vbox" stylesheets="@styles.css" />
+         <VBox prefHeight="742.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+         <VBox prefHeight="742.0" prefWidth="455.0" styleClass="card-vbox" stylesheets="@styles.css" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin></VBox>
       </children>
    </HBox>
 </AnchorPane>

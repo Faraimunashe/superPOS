@@ -12,8 +12,12 @@ module com.faraimunashe.superpos {
     requires com.almasb.fxgl.all;
     requires java.net.http;
     requires com.google.gson;
+    requires com.fasterxml.jackson.databind;
 
-    exports com.faraimunashe.superpos.Controllers to javafx.fxml;
+    // Open the controllers package for reflective access by FXMLLoader
+    opens com.faraimunashe.superpos.Controllers to javafx.fxml;
+
+    // The root package can still be exported
     opens com.faraimunashe.superpos to javafx.fxml;
     exports com.faraimunashe.superpos;
 }

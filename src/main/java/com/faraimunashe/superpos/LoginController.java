@@ -60,6 +60,8 @@ public class LoginController {
                 Auth.setToken(token);
                 Auth.setUser(user);
 
+                //System.out.println("Username : "+userJson.get("name").getAsString());
+
                 Platform.runLater(() -> {
                     showMainApp();
                 });
