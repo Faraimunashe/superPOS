@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -48,7 +50,18 @@
          <VBox prefHeight="742.0" prefWidth="455.0" styleClass="card-vbox" stylesheets="@styles.css" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets />
-            </HBox.margin></VBox>
+            </HBox.margin>
+            <children>
+               <TableView fx:id="tblCart" prefHeight="435.0" prefWidth="504.0" stylesheets="@styles.css">
+                 <columns>
+                   <TableColumn id="colItem" fx:id="colItem" prefWidth="193.0" text="Item" />
+                   <TableColumn id="colQty" fx:id="colQty" prefWidth="79.0" text="Quantity" />
+                     <TableColumn id="colPrice" fx:id="colPrice" prefWidth="106.0" text="Price" />
+                     <TableColumn id="colAction" fx:id="colAction" prefWidth="122.0" text="Action" />
+                 </columns>
+               </TableView>
+               <Label fx:id="lblAmount" text="Label" />
+            </children></VBox>
       </children>
    </HBox>
 </AnchorPane>

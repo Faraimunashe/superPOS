@@ -3,24 +3,33 @@ package com.faraimunashe.superpos.Controllers;
 
 import com.faraimunashe.superpos.Bootstrap.ConfigReader;
 import com.faraimunashe.superpos.Context.Auth;
+import com.faraimunashe.superpos.Context.SharedCart;
 import com.faraimunashe.superpos.Http.CurrencyHttpService;
 import com.faraimunashe.superpos.Http.ItemHttpService;
+import com.faraimunashe.superpos.Models.CartItem;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.time.LocalTime;
@@ -64,6 +73,24 @@ public class PosController implements Initializable {
     @FXML
     private Button btnUpdate;
 
+    @FXML
+    private TableView<CartItem> tblCart;
+
+    @FXML
+    private TableColumn<CartItem, Void> colAction;
+
+    @FXML
+    private TableColumn<CartItem, String> colItem;
+
+    @FXML
+    private TableColumn<CartItem, Double> colPrice;
+
+    @FXML
+    private TableColumn<CartItem, Integer> colQty;
+
+    @FXML
+    private Label lblAmount;
+
     private ItemHttpService itemService;
 
     private JsonNode allItems;
@@ -76,6 +103,10 @@ public class PosController implements Initializable {
 
 
     private String termId = config.getValue("TERMID");
+
+    private ObservableList<CartItem> cartItems;
+
+    private String selectedCurrency = "USD";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,6 +122,32 @@ public class PosController implements Initializable {
         lblTerminal.setText("TERMINAL: " + termId);
         lblUsername.setText("USERNAME: " + Auth.getUser().getName());
         clock_time();
+
+        /*
+         * List Cart Items
+         * */
+
+        cartItems = SharedCart.getInstance().getCartItems();
+        tblCart.setItems(cartItems);
+
+        //colItem_id.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getItemId()).asObject());
+        colItem.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        colQty.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+        colPrice.setCellValueFactory(cellData -> {
+            double priceInCurrency = cellData.getValue().getTotalPriceInCurrency(selectedCurrency);
+            return new SimpleDoubleProperty(priceInCurrency).asObject();
+        });
+        colQty.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colQty.setOnEditCommit(event -> {
+            CartItem item = event.getRowValue();
+            int newQty = event.getNewValue();
+            item.setQuantity(newQty);
+            updateCartDisplay();
+        });
+
+        tblCart.setEditable(true);
+
+        addButtonToTable();
     }
 
     /**
@@ -183,7 +240,34 @@ public class PosController implements Initializable {
 
     void handleItemClick(int itemId, String itemName, Double itemPrice)
     {
+        try {
 
+            if (itemId <= 0 || itemName.isEmpty() || itemPrice <= 0) {
+                showAlert("Invalid Input", "Cart cannot read item now.");
+                return;
+            }
+
+            SharedCart sharedCart = SharedCart.getInstance();
+            boolean itemExists = false;
+
+            for (CartItem cartItem : sharedCart.getCartItems()) {
+                if (cartItem.getItemId().equals(itemId)) {
+                    cartItem.setQuantity(cartItem.getQuantity() + 1);
+                    itemExists = true;
+                    break;
+                }
+            }
+
+            if (!itemExists) {
+                CartItem newItem = new CartItem(itemId, itemName, 1, itemPrice);
+                sharedCart.addItem(newItem);
+            }
+
+            System.out.println("Item added to the cart");
+            //Upadate cart display
+        } catch (Exception e) {
+            showAlert("Invalid Input", "Something went wrong.");
+        }
     }
 
     void  clock_time(){
@@ -196,6 +280,59 @@ public class PosController implements Initializable {
 
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void addButtonToTable() {
+        colAction.setCellFactory(new Callback<TableColumn<CartItem, Void>, TableCell<CartItem, Void>>() {
+            @Override
+            public TableCell<CartItem, Void> call(final TableColumn<CartItem, Void> param) {
+                final TableCell<CartItem, Void> cell = new TableCell<CartItem, Void>() {
+
+                    private final Button btn = new Button("Delete");
+
+                    {
+                        btn.setOnAction(event -> {
+                            CartItem item = getTableView().getItems().get(getIndex());
+                            deleteItemFromCart(item);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+    }
+
+    private void deleteItemFromCart(CartItem item) {
+        SharedCart.getInstance().removeItem(item);
+        updateCartDisplay();
+    }
+
+    public void updateCartDisplay() {
+        tblCart.refresh();
+
+        double totalAmount = SharedCart.getInstance().getCartItems().stream()
+                .mapToDouble(item -> item.getTotalPriceInCurrency(selectedCurrency)) // Use the selected currency
+                .sum();
+
+        lblAmount.setText("Total: " + selectedCurrency + " " + String.format("%.2f", totalAmount));
     }
 
 }
