@@ -4,12 +4,15 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import com.faraimunashe.superpos.Bootstrap.ConfigReader;
 import com.faraimunashe.superpos.Context.Auth;
+import com.faraimunashe.superpos.Context.CurrencySessionManager;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,6 +55,7 @@ public class CurrencyConversionService {
     }
 
     private void loadRatesFromApi() {
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
                 .header("Authorization", "Bearer " + BEARER_TOKEN)
@@ -68,6 +72,7 @@ public class CurrencyConversionService {
                                 String currencyCode = entry.getKey();
                                 double conversionRate = entry.getValue().asDouble();
                                 currencyRates.put(currencyCode, conversionRate);
+
                             });
                             return data;
                         } catch (Exception e) {

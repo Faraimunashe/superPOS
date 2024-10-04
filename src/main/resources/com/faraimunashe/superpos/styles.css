@@ -174,54 +174,75 @@
     -fx-text-fill: #007bff; /* Blue color for price */
 }
 
-.table-view {
-    -fx-background-color: white;
-    -fx-border-color: #dee2e6;
-    -fx-border-width: 1px;
-    -fx-border-radius: 4px; /* Replaced 0.25rem with 4px */
-    -fx-background-radius: 4px; /* Replaced 0.25rem with 4px */
-    -fx-padding: 0;
-    -fx-font-family: 'Arial', sans-serif;
-    -fx-font-size: 14px;
+/* Button styled like Bootstrap's btn-primary */
+.button-primary {
+    -fx-background-color: #0d6efd; /* Primary blue background */
+    -fx-text-fill: white; /* White text */
+    -fx-padding: 3px 7px; /* Padding similar to Bootstrap */
+    -fx-border-radius: 2px; /* Rounded corners */
+    -fx-background-radius: 2px; /* Match border radius */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-border-color: transparent; /* No visible border */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 2); /* Subtle shadow */
 }
 
-.table-view .column-header {
-    -fx-background-color: #f8f9fa;
-    -fx-border-color: #dee2e6;
-    -fx-border-width: 1px 0 1px 0;
-    -fx-font-weight: bold;
-    -fx-alignment: center-left;
+.button-primary:hover {
+    -fx-background-color: #0b5ed7; /* Darker shade on hover */
 }
 
-.table-view .column-header-background {
-    -fx-background-color: transparent;
+.button-primary:pressed {
+    -fx-background-color: #0a58ca; /* Even darker shade on press */
 }
 
-.table-view .table-row-cell {
-    -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-border-width: 0 0 1px 0;
-    -fx-padding: 8px;
+
+/* Page Title CSS with larger text */
+.page-title {
+    -fx-font-size: 18px; /* Larger font size for extra prominence */
+    -fx-font-weight: bold; /* Bold for emphasis */
+    -fx-text-fill: #333333; /* Dark grey text color for elegance */
+    -fx-padding: 15px 30px; /* Increased padding to balance larger text */
+    -fx-text-alignment: center; /* Center text alignment */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 3); /* Subtle shadow effect */
+    -fx-border-color: transparent transparent #0d6efd transparent; /* Bottom border */
+    -fx-border-width: 0 0 3px 0; /* Thicker bottom border */
+    -fx-border-style: solid; /* Solid border style */
+    -fx-background-color: transparent; /* Transparent background */
 }
 
-.table-view .table-row-cell:odd {
-    -fx-background-color: #f2f2f2; /* Light grey for striped effect */
+/* Optional hover effect for interactivity */
+.page-title:hover {
+    -fx-text-fill: #0d6efd; /* Change text color to match primary button on hover */
+    -fx-border-color: transparent transparent #0b5ed7 transparent; /* Change bottom border color */
+    -fx-transition: text-fill 0.3s, border-color 0.3s; /* Smooth transition */
 }
 
-.table-view .table-row-cell:selected {
-    -fx-background-color: #e9ecef; /* Light blue for selected row */
-    -fx-border-color: #007bff; /* Bootstrap primary color for selected row border */
+
+/* Button styled like Bootstrap's btn-dark */
+.button-dark {
+    -fx-background-color: #343a40; /* Dark grey background */
+    -fx-text-fill: white; /* White text */
+    -fx-padding: 3px 7px; /* Padding similar to Bootstrap */
+    -fx-border-radius: 2px; /* Rounded corners */
+    -fx-background-radius: 2px; /* Match border radius */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-border-color: transparent; /* No visible border */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 2); /* Subtle shadow */
 }
 
-.table-view .table-cell {
-    -fx-padding: 8px;
-    -fx-alignment: center-left;
-    -fx-border-color: transparent;
+/* Hover state: lighter dark shade */
+.button-dark:hover {
+    -fx-background-color: #23272b; /* Lighter dark shade on hover */
 }
 
-.table-view .table-cell:selected {
-    -fx-background-color: #e9ecef; /* Light blue for selected cell */
+/* Pressed state: darker shade */
+.button-dark:pressed {
+    -fx-background-color: #1d2124; /* Darker shade on press */
 }
+
 
 
 

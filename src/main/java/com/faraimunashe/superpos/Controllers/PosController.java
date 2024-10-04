@@ -3,6 +3,7 @@ package com.faraimunashe.superpos.Controllers;
 
 import com.faraimunashe.superpos.Bootstrap.ConfigReader;
 import com.faraimunashe.superpos.Context.Auth;
+import com.faraimunashe.superpos.Context.CurrencySessionManager;
 import com.faraimunashe.superpos.Context.SharedCart;
 import com.faraimunashe.superpos.Http.CurrencyHttpService;
 import com.faraimunashe.superpos.Http.ItemHttpService;
@@ -34,6 +35,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.StreamSupport;
@@ -42,6 +44,9 @@ public class PosController implements Initializable {
 
     @FXML
     private HBox headerHbox;
+
+    @FXML
+    private ComboBox<String> currencyComboBox;
 
     @FXML
     private ScrollPane scrollProducts;
@@ -95,12 +100,9 @@ public class PosController implements Initializable {
 
     private JsonNode allItems;
 
-    private CurrencyHttpService conversionService = new CurrencyHttpService();
-
     ConfigReader config = new ConfigReader();
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
 
     private String termId = config.getValue("TERMID");
 
@@ -110,6 +112,10 @@ public class PosController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        CurrencyHttpService currencyApi = new CurrencyHttpService();
+        currencyApi.loadRatesFromApi();
+
+
         itemService = new ItemHttpService();
         fetchItemsAndPopulateUI();
 
@@ -148,6 +154,7 @@ public class PosController implements Initializable {
         tblCart.setEditable(true);
 
         addButtonToTable();
+
     }
 
     /**
@@ -264,7 +271,8 @@ public class PosController implements Initializable {
             }
 
             System.out.println("Item added to the cart");
-            //Upadate cart display
+            //Update cart display
+            updateCartDisplay();
         } catch (Exception e) {
             showAlert("Invalid Input", "Something went wrong.");
         }
