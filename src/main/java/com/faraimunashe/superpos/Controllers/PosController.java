@@ -8,6 +8,7 @@ import com.faraimunashe.superpos.Context.SharedCart;
 import com.faraimunashe.superpos.Http.CurrencyHttpService;
 import com.faraimunashe.superpos.Http.ItemHttpService;
 import com.faraimunashe.superpos.Models.CartItem;
+import com.faraimunashe.superpos.SuperPosApplication;
 import com.fasterxml.jackson.databind.JsonNode;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,11 +16,16 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
@@ -28,10 +34,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -108,7 +119,7 @@ public class PosController implements Initializable {
 
     private ObservableList<CartItem> cartItems;
 
-    private String selectedCurrency = "USD";
+    private String selectedCurrency = config.getValue("CURRENCY");;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -154,6 +165,10 @@ public class PosController implements Initializable {
         tblCart.setEditable(true);
 
         addButtonToTable();
+
+        populateCurrencyComboBox();
+        currencyComboBox.setValue(selectedCurrency); // Set default value to USD
+        currencyComboBox.setOnAction(event -> updateCartCurrency());
 
     }
 
@@ -342,5 +357,71 @@ public class PosController implements Initializable {
 
         lblAmount.setText("Total: " + selectedCurrency + " " + String.format("%.2f", totalAmount));
     }
+
+    private void populateCurrencyComboBox() {
+        ObservableList<String> currencyCodes = FXCollections.observableArrayList();
+
+        // Retrieve currency rates from Auth
+        for (Auth.Rate rate : Auth.getRates()) {
+            currencyCodes.add(rate.getCurrencyCode());
+        }
+
+        currencyComboBox.setItems(currencyCodes);
+    }
+
+    private void updateCartCurrency() {
+        selectedCurrency = currencyComboBox.getValue();
+        ObservableList<CartItem> updatedCartItems = SharedCart.getInstance().getCartItemsInCurrency(selectedCurrency);
+
+        updateCartDisplay();
+    }
+
+    @FXML
+    void handleCardPayment(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleCashPayment(ActionEvent event) {
+        try {
+            Double amount = SharedCart.getInstance().getCartItems().stream()
+                    .mapToDouble(item -> item.getTotalPriceInCurrency(this.selectedCurrency)) // Ensure it uses the selected currency
+                    .sum();
+
+            if (amount <= 0.0) {
+                showAlert("Error", "Amount Can't be less than or equal to 0.");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader();
+            InputStream fxmlStream = getClass().getResourceAsStream("/com/faraimunashe/superpos/cash-payment-view.fxml");
+            if (fxmlStream == null) {
+                showAlert("Error","FXML file not found!");
+            }
+            AnchorPane modalLayout = loader.load(fxmlStream);
+            //AnchorPane modalLayout = loader.load();
+
+
+            CashPaymentController controller = loader.getController();
+            controller.setCurrency(selectedCurrency);
+
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UTILITY);
+            modalStage.setTitle("Cash Payment Modal Dialog");
+
+            Scene modalScene = new Scene(modalLayout);
+
+            String css = getClass().getResource("/com/faraimunashe/superpos/styles.css").toExternalForm();
+            modalScene.getStylesheets().add(css);
+
+            modalStage.setScene(modalScene);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Rendering Error", "Could not load FXML file, cash-payment-view.");
+        }
+    }
+
 
 }

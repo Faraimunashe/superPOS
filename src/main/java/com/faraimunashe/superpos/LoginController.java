@@ -2,6 +2,7 @@ package com.faraimunashe.superpos;
 
 import com.faraimunashe.superpos.Context.Auth;
 import com.faraimunashe.superpos.Http.LoginHttpService;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginController {
 
@@ -49,16 +52,18 @@ public class LoginController {
             try {
                 JsonObject response = LoginHttpService.login(email, password);
 
-                String token = response.get("token").getAsString();
-                JsonObject userJson = response.getAsJsonObject("user");
+//                String token = response.get("token").getAsString();
+//                JsonObject userJson = response.getAsJsonObject("user");
+//
+//                Auth.User user = new Auth.User();
+//                user.setId(userJson.get("id").getAsInt());
+//                user.setName(userJson.get("name").getAsString());
+//                user.setEmail(userJson.get("email").getAsString());
+//
+//                Auth.setToken(token);
+//                Auth.setUser(user);
 
-                Auth.User user = new Auth.User();
-                user.setId(userJson.get("id").getAsInt());
-                user.setName(userJson.get("name").getAsString());
-                user.setEmail(userJson.get("email").getAsString());
-
-                Auth.setToken(token);
-                Auth.setUser(user);
+                handleLoginResponse(response);
 
                 //System.out.println("Username : "+userJson.get("name").getAsString());
 
@@ -101,5 +106,38 @@ public class LoginController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void handleLoginResponse(JsonObject response) {
+        String token = response.get("token").getAsString();
+        JsonObject userJson = response.getAsJsonObject("user");
+
+        Auth.User user = new Auth.User();
+        user.setId(userJson.get("id").getAsInt());
+        user.setName(userJson.get("name").getAsString());
+        user.setEmail(userJson.get("email").getAsString());
+
+        // Store user and token
+        Auth.setToken(token);
+        Auth.setUser(user);
+
+        // Get rates and store them in Auth
+        JsonArray ratesJson = response.getAsJsonArray("rates");
+        List<Auth.Rate> rates = new ArrayList<>();
+
+        for (int i = 0; i < ratesJson.size(); i++) {
+            JsonObject rateJson = ratesJson.get(i).getAsJsonObject();
+            Auth.Rate rate = new Auth.Rate();
+            rate.setId(rateJson.get("id").getAsInt());
+            rate.setCurrencyCode(rateJson.get("currency_code").getAsString());
+            rate.setConversionRate(rateJson.get("conversion_rate").getAsDouble());
+            rate.setActive(rateJson.get("active").getAsInt() == 1); // Convert to boolean
+
+            rates.add(rate);
+        }
+
+        Auth.setRates(rates); // Store rates in Auth
+
+        //Platform.runLater(this::showMainApp);
     }
 }

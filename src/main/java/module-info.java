@@ -13,6 +13,9 @@ module com.faraimunashe.superpos {
     requires java.net.http;
     requires com.google.gson;
     requires com.fasterxml.jackson.databind;
+    requires javafx.swing;
+    requires com.google.zxing.javase;
+    requires com.google.zxing;
 
     // Open the controllers package for reflective access by FXMLLoader
     opens com.faraimunashe.superpos.Controllers to javafx.fxml;

@@ -70,8 +70,8 @@
                   </columnResizePolicy>
                </TableView>
                <Label fx:id="lblAmount" prefHeight="50.0" prefWidth="506.0" styleClass="page-title" stylesheets="@styles.css" text="\$00.00" VBox.vgrow="ALWAYS" />
-               <Button fx:id="btnCash" mnemonicParsing="false" prefHeight="46.0" prefWidth="504.0" styleClass="button-primary" stylesheets="@styles.css" text="CASH PAYMENT" VBox.vgrow="ALWAYS" />
-               <Button fx:id="btnCard" mnemonicParsing="false" prefHeight="45.0" prefWidth="504.0" styleClass="button-dark" stylesheets="@styles.css" text="CARD PAYMENT" />
+               <Button fx:id="btnCash" mnemonicParsing="false" onAction="#handleCashPayment" prefHeight="46.0" prefWidth="504.0" styleClass="button-primary" stylesheets="@styles.css" text="CASH PAYMENT" VBox.vgrow="ALWAYS" />
+               <Button fx:id="btnCard" mnemonicParsing="false" onAction="#handleCardPayment" prefHeight="45.0" prefWidth="504.0" styleClass="button-dark" stylesheets="@styles.css" text="CARD PAYMENT" />
             </children></VBox>
       </children>
    </HBox>

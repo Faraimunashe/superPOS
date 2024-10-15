@@ -244,5 +244,145 @@
 }
 
 
+.modal-pane {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-padding: 20px; /* Padding inside the modal */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Rounded corners for background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); /* Drop shadow effect */
+}
+
+.modal-title {
+    -fx-font-size: 20px; /* Title font size */
+    -fx-font-weight: bold; /* Bold title */
+    -fx-text-fill: #333333; /* Dark grey text color */
+}
+
+.vbox-card {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-padding: 20px; /* Inner padding */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Background rounded corners */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); /* Shadow effect */
+    -fx-pref-width: 300px; /* Preferred width of the card */
+    -fx-pref-height: 200px; /* Preferred height of the card */
+}
+
+.vbox-card-title {
+    -fx-font-size: 22px; /* Font size for the title */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #333333; /* Dark grey color */
+    -fx-padding-bottom: 10px; /* Space below the title */
+}
+
+
+/* form.css */
+.text-field {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #ced4da; /* Bootstrap border color */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-border-width: 1px; /* Border width */
+    -fx-padding: 10px; /* Padding inside the text field */
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #495057; /* Text color */
+}
+
+.text-field:focused {
+    -fx-border-color: #80bdff; /* Border color when focused */
+    -fx-background-color: #ffffff; /* Keep background white */
+    -fx-box-shadow: 0 0 0 0.2em rgba(0, 123, 255, 0.25); /* Bootstrap focus shadow */
+}
+
+.text-field:disabled {
+    -fx-background-color: #e9ecef; /* Light grey background for disabled state */
+    -fx-border-color: #ced4da; /* Same border color for disabled state */
+    -fx-text-fill: #6c757d; /* Grey text for disabled state */
+}
+
+
+/* form.css */
+.label {
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #495057; /* Dark text color */
+    -fx-padding: 5px 0; /* Vertical padding */
+    -fx-font-weight: bold; /* Bold text for emphasis */
+}
+
+.label.required {
+    -fx-text-fill: #dc3545; /* Bootstrap's danger color for required labels */
+}
+
+.label:disabled {
+    -fx-text-fill: #6c757d; /* Grey color for disabled state */
+}
+
+/* button.css */
+.process-button {
+    -fx-background-color: #28a745; /* Bootstrap's success color */
+    -fx-text-fill: white; /* White text color */
+    -fx-padding: 10px 20px; /* Vertical and horizontal padding */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Rounded corners for background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Drop shadow for depth */
+    -fx-transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.process-button:hover {
+    -fx-background-color: #218838; /* Darker shade of green on hover */
+}
+
+.process-button:pressed {
+    -fx-background-color: #1e7e34; /* Even darker shade when pressed */
+}
+
+
+/* Grey button styling */
+.grey-button {
+    -fx-background-color: #6c757d; /* Bootstrap's secondary color */
+    -fx-text-fill: white; /* White text color */
+    -fx-padding: 10px 20px; /* Vertical and horizontal padding */
+    -fx-font-size: 16px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Rounded corners for background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Drop shadow for depth */
+    -fx-transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.grey-button:hover {
+    -fx-background-color: #5a6268; /* Darker shade of grey on hover */
+}
+
+.grey-button:pressed {
+    -fx-background-color: #4e555b; /* Even darker shade when pressed */
+}
+
+/* Danger alert label styling */
+.alert-danger {
+    -fx-background-color: #f8d7da; /* Light red background */
+    -fx-text-fill: #721c24; /* Dark red text color */
+    -fx-padding: 10px; /* Padding around the text */
+    -fx-border-color: #f5c6cb; /* Border color (light red) */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Rounded corners for background */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text for emphasis */
+}
+
+/* Success alert label styling */
+.alert-success {
+    -fx-background-color: #d4edda; /* Light green background */
+    -fx-text-fill: #155724; /* Dark green text color */
+    -fx-padding: 10px; /* Padding around the text */
+    -fx-border-color: #c3e6cb; /* Border color (light green) */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Rounded corners for background */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-weight: bold; /* Bold text for emphasis */
+}
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="479.0" prefWidth="743.0" styleClass="modal-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.faraimunashe.superpos.Controllers.CashPaymentController">
+   <children>
+      <VBox alignment="CENTER" layoutX="26.0" layoutY="20.0" prefHeight="449.0" prefWidth="680.0" styleClass="vbox-card" stylesheets="@styles.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <AnchorPane fx:id="paneTitle" prefHeight="359.0" prefWidth="638.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label layoutX="198.0" layoutY="24.0" styleClass="vbox-card-title" stylesheets="@styles.css" text="PROCESS CASH PAYMENT" />
+                  <TextField fx:id="txtCashAmount" layoutX="51.0" layoutY="153.0" prefHeight="27.0" prefWidth="222.0" styleClass="text-field" stylesheets="@styles.css" />
+                  <Label layoutX="51.0" layoutY="122.0" stylesheets="@styles.css" text="Cash Amount" />
+                  <TextField fx:id="txtChangeAmount" disable="true" layoutX="344.0" layoutY="153.0" prefHeight="27.0" prefWidth="222.0" styleClass="text-field" stylesheets="@styles.css" />
+                  <Label layoutX="344.0" layoutY="122.0" stylesheets="@styles.css" text="Change" />
+                  <Button fx:id="btnProcess" layoutX="51.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleProcess" prefHeight="31.0" prefWidth="515.0" styleClass="process-button" stylesheets="@styles.css" text="Process" />
+                  <Button fx:id="btnExit" layoutX="51.0" layoutY="292.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="31.0" prefWidth="515.0" styleClass="grey-button" stylesheets="@styles.css" text="Exit" />
+                  <Label fx:id="lblErrorMessage" alignment="CENTER" layoutX="209.0" layoutY="79.0" styleClass="alert-danger" stylesheets="@styles.css" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
