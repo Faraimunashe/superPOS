@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
 
 <AnchorPane prefHeight="479.0" prefWidth="743.0" styleClass="modal-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.faraimunashe.superpos.Controllers.CashPaymentController">
    <children>
@@ -21,6 +21,7 @@
                   <Button fx:id="btnProcess" layoutX="51.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleProcess" prefHeight="31.0" prefWidth="515.0" styleClass="process-button" stylesheets="@styles.css" text="Process" />
                   <Button fx:id="btnExit" layoutX="51.0" layoutY="292.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="31.0" prefWidth="515.0" styleClass="grey-button" stylesheets="@styles.css" text="Exit" />
                   <Label fx:id="lblErrorMessage" alignment="CENTER" layoutX="209.0" layoutY="79.0" styleClass="alert-danger" stylesheets="@styles.css" visible="false" />
+                  <ProgressIndicator fx:id="postProgress" layoutX="271.0" layoutY="59.0" prefHeight="40.0" prefWidth="38.0" visible="false" />
                </children>
             </AnchorPane>
          </children>

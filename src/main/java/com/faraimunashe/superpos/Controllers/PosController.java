@@ -2,6 +2,7 @@ package com.faraimunashe.superpos.Controllers;
 
 
 import com.faraimunashe.superpos.Bootstrap.ConfigReader;
+import com.faraimunashe.superpos.Context.AppContext;
 import com.faraimunashe.superpos.Context.Auth;
 import com.faraimunashe.superpos.Context.CurrencySessionManager;
 import com.faraimunashe.superpos.Context.SharedCart;
@@ -47,6 +48,7 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.StreamSupport;
@@ -107,6 +109,12 @@ public class PosController implements Initializable {
     @FXML
     private Label lblAmount;
 
+    @FXML
+    private Button btnCard;
+
+    @FXML
+    private Button btnCash;
+
     private ItemHttpService itemService;
 
     private JsonNode allItems;
@@ -119,10 +127,13 @@ public class PosController implements Initializable {
 
     private ObservableList<CartItem> cartItems;
 
-    private String selectedCurrency = config.getValue("CURRENCY");;
+    private String selectedCurrency = config.getValue("CURRENCY");
+
+    private String environment = config.getValue("ENVIRONMENT");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        AppContext.getInstance().setPosController(this);
         CurrencyHttpService currencyApi = new CurrencyHttpService();
         currencyApi.loadRatesFromApi();
 
@@ -139,6 +150,18 @@ public class PosController implements Initializable {
         lblTerminal.setText("TERMINAL: " + termId);
         lblUsername.setText("USERNAME: " + Auth.getUser().getName());
         clock_time();
+
+        if (Objects.equals(environment, "CASH"))
+        {
+            btnCard.setDisable(true);
+        } else if (Objects.equals(environment, "EFT")) {
+            btnCash.setDisable(true);
+        } else if (Objects.equals(environment, "BOTH")) {
+            //stay active
+        }else {
+            btnCard.setDisable(true);
+            btnCash.setDisable(true);
+        }
 
         /*
          * List Cart Items
