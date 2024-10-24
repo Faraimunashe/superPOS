@@ -6,13 +6,20 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
+import com.faraimunashe.superpos.Bootstrap.ConfigReader;
 import com.faraimunashe.superpos.Context.Auth;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ItemHttpService {
-    private static final String API_URL = "http://127.0.0.1:8000/api/v1/items";
+    static ConfigReader config = new ConfigReader();
+
+    private static String server = config.getValue("SERVER");
+    private static String serverVersion = config.getValue("SERVER_VERSION");
+
+    private static final String API_URL = server + "/" + serverVersion + "/items";
     private static final String BEARER_TOKEN = Auth.getToken();
+
 
     private final HttpClient client;
     private final ObjectMapper objectMapper;

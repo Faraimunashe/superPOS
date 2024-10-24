@@ -401,7 +401,44 @@ public class PosController implements Initializable {
 
     @FXML
     void handleCardPayment(ActionEvent event) {
+        try {
+            Double amount = SharedCart.getInstance().getCartItems().stream()
+                    .mapToDouble(item -> item.getTotalPriceInCurrency(this.selectedCurrency))
+                    .sum();
 
+            if (amount <= 0.0) {
+                showAlert("Error", "Amount Can't be less than or equal to 0.");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader();
+            InputStream fxmlStream = getClass().getResourceAsStream("/com/faraimunashe/superpos/card-payment-view.fxml");
+            if (fxmlStream == null) {
+                showAlert("Error","FXML file not found!");
+            }
+            AnchorPane modalLayout = loader.load(fxmlStream);
+            //AnchorPane modalLayout = loader.load();
+
+
+            CashPaymentController controller = loader.getController();
+            controller.setCurrency(selectedCurrency);
+
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UTILITY);
+            modalStage.setTitle("Card Payment Modal Dialog");
+
+            Scene modalScene = new Scene(modalLayout);
+
+            String css = getClass().getResource("/com/faraimunashe/superpos/styles.css").toExternalForm();
+            modalScene.getStylesheets().add(css);
+
+            modalStage.setScene(modalScene);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Rendering Error", "Could not load FXML file, card-payment-view.");
+        }
     }
 
     @FXML
