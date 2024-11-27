@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface Version="1.0"
+	xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/">
+	<Esp:Callback TerminalId="$TERM_ID$"
+		EventId="DATA_REQUIRED" ResponseData="$RESPONSE_DATA$" />
+</Esp:Interface>

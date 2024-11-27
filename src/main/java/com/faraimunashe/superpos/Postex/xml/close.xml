@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/" Version="1.0">
+   <Esp:Admin TerminalId="$TERM_ID$" Action="CLOSE" />
+</Esp:Interface>

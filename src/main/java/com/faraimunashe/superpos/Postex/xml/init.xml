@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/" Version="1.0">
+   <Esp:Admin TerminalId="$TERM_ID$" Action="INIT">
+      <Esp:Register Type="CALLBACK" EventId="IAN" />
+      <Esp:Register Type="CALLBACK" EventId="DATA_REQUIRED" />
+      <Esp:Register Type="EVENT" EventId="DEBUG_ALL" />
+   </Esp:Admin>
+</Esp:Interface>

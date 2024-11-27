@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface Version="1.0"
+	xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/">
+	<Esp:Reconciliation TerminalId="$TERM_ID$"
+		TransactionId="$TRAN_ID$" DateTime="$DATE_TIME$" NumberOfCredits="0"
+		NumberOfCreditsReversal="1" NumberOfDebits="2"
+		NumberOfDebitsReversal="0" NumberOfAuthorizations="1"
+		NumberOfInquiries="0" CreditsAmount="0" CreditsReversalAmount="12300"
+		DebitsAmount="24600" DebitsReversalAmount="0">
+		<Esp:NetSettlementAmount Amount="12300"
+			Sign="D" />
+      <Esp:PosStructuredData Name="version" Value="$VERSION$" />
+	</Esp:Reconciliation>
+</Esp:Interface>

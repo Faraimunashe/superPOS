@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface Version="1.0"
+	xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/">
+	<Esp:Transaction TerminalId="$TERM_ID$"
+		TransactionId="$TRAN_ID$" Type="$TYPE$" Reversal="TRUE"
+		TransactionAmount="000000000000">
+      <Esp:PosStructuredData Name="version" Value="$VERSION$" />
+	</Esp:Transaction>
+</Esp:Interface>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Esp:Interface xmlns:Esp="http://www.mosaicsoftware.com/Postilion/eSocket.POS/" 
+			Version="1.0">
+   <Esp:Transaction CurrencyCode="$CURRENCY_CODE$" TerminalId="$TERM_ID$" TransactionId="$TRAN_ID$" Type="$TYPE$"
+   					TransactionAmount="$AMOUNT$">
+      <Esp:PurchasingCardData Description="Purcahsing Card Data">
+         <Esp:LineItem Description="Item 11" />
+         <Esp:LineItem Description="Item 2" Sign="C">
+            <Esp:TaxAmount Type="04" />
+            <Esp:TaxAmount Type="05" />
+         </Esp:LineItem>
+         <Esp:Contact Type="BILL_FROM" Name="Ian" />
+         <Esp:Contact Type="BILL_TO" Telephone="021" />
+         <Esp:TaxAmount Type="02" />
+         <Esp:TaxAmount Type="03" />
+      </Esp:PurchasingCardData>
+      <Esp:PosStructuredData Name="version" Value="$VERSION$" />
+   </Esp:Transaction>
+</Esp:Interface>
